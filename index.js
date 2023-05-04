@@ -1,8 +1,17 @@
 const fs = require('fs')
-const generateCircle = require('./utils/generateCircle')
-const generatePolygon = require('./utils/generatePolygon')
-const generateSquare = require('./utils/generateSquare')
+const Circle = require('./utils/generateCircle')
+const Polygon = require('./utils/generatePolygon')
+const Square = require('./utils/generateSquare')
 const inquirer = require('inquirer')
+
+function logoGen({text, textcolor, shape, shapecolor}, shapeCont) {
+    return `
+    <svg version="1.1" width="300" height="200" xmlns="http://www.w3.org/2000/svg">
+    ${shapeCont}
+    <text x="150" y="125" font-size="60" text-anchor="middle" fill="${textcolor}">${text}</text>
+    </svg>
+    `;
+}
 
 const questions = [
     {
@@ -16,8 +25,8 @@ const questions = [
     {
         name: 'shape',
         type: 'checkbox',
-        message: 'Select a shape (polygon = triangle, rect = square)',
-        choices: ['circle', 'polygon', 'rect']
+        message: 'Select a shape (polygon = triangle)',
+        choices: ['circle', 'polygon', 'square']
     },
     {
         name: 'shapecolor',
@@ -25,23 +34,33 @@ const questions = [
     },
 ]
 
-function writeToFile(filename, data) {
-    return fs.writeFile(filename, data, (err) => {
-        if(err)
-        return console.log(err)
-    })    
-}
-
 function init () {
     inquirer.prompt(questions)
         .then((questions) => {
+            var shapeCont = ''
+
+
+            
             if (questions.shape == 'circle') {
-                writeToFile('./logo.svg', generateCircle(questions))
+                const circle = new Circle()
+                circle.addColor(questions.shapecolor)
+                shapeCont = circle.render()
+
             } else if (questions.shape == 'polygon') {
-                writeToFile('./logo.svg', generatePolygon(questions))
-            } else if (questions.shape == 'rect') { 
-                writeToFile('./logo.svg', generateSquare(questions))
+                const polygon = new Polygon()
+                polygon.addColor(questions.shapecolor)
+                shapeCont = polygon.render()
+
+            } else if (questions.shape == 'square') { 
+                const square = new Square()
+                square.addColor(questions.shapecolor)
+                shapeCont = square.render()
             }
+            const content = logoGen(questions, shapeCont)
+            fs.writeFile('logo.svg', content, (err) => {
+                if (err)
+                return console.log(err)
+            })
         })
 }
 
