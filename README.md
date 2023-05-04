@@ -2,7 +2,7 @@
 
 ## Demonstration
 
-[Video Demonstration of Application](https://drive.google.com/file/d/1wsxQYAP4B8rp2lUF5JVL3YE8mO7b_ykS)
+[Video Demonstration of Application](https://drive.google.com/file/d/1ODY7j3YJ2uBJlwJtcVxUA14AI37-0JVP/view)
 
 ## Description
 
@@ -10,7 +10,15 @@ This project was completed for the purpose of creating an SVG logo generator. Us
 
 ## Usage
 
-As seen in the demnostration video, the user types "node index.js" to initialize the application and then follows the prompts to fill in the information for each part of the logo design. Since this is a command-line application, Github deployment is not applicable to the application. 
+Type the following command in the terminal to start the application
+
+        node index.js
+
+Then answer the prompts with the desired text, text color, and shape color choices.
+
+To test that all three shapes are generating correctly (with Jest), run the following command in the terminal
+
+        npm test
 
 ## License
 
