@@ -1,18 +1,15 @@
-
 class Circle {
     constructor() {
-        this.text = ''
+        this.text = "";
     }
     addColor(shapecolor) {
-        this.text = 
-        `
-        <circle cx="150" cy="100" r="80" fill="${shapecolor}" />
-        `;
+        this.text = `
+        <circle cx="150" cy="100" r="80" fill="${shapecolor}" 
+        />`;
     }
     render() {
-        return this.text
+        return this.text;
     }
-}
-
-module.exports = Circle
-
+  }
+  
+  module.exports = Circle;
